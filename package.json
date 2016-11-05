@@ -1,0 +1,25 @@
+{
+  "name": "desabafa",
+  "description": "Desabafa é uma web aplicação para auxiliar na identificação de violência contra a mulher dos níveis mais sutis aos mais graves e ajuda na busca de informação e apoio.",
+  "version": "0.1.1",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "basic-auth-connect": "1.0.0",
+    "dotenv": "^2.0.0",
+    "express": "4.13.4",
+    "body-parser": "1.15.1",
+    "watson-developer-cloud": "^2.4.6",
+    "cloudant": "1.4.1",
+    "express-csv": "0.6.0",
+    "nano" : "*",
+    "uuid": "2.0.2",
+    "vcap_services": "^0.2.0"
+  },
+  "engine": {
+    "node": ">= 4.2.4"
+  }
+}
