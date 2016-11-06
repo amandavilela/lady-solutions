@@ -80,10 +80,10 @@ var ConversationPanel = (function() {
       if (currentText) {
         var messageJson = {
           'tagName': 'div',
-          'classNames': ['segments'],
+          'classNames': ['chat-msg'],
           'children': [{
             'tagName': 'div',
-            'classNames': [(isUser ? 'from-user' : 'from-watson')],
+            'classNames': ['msg-type', (isUser ? 'from-user' : 'from-watson')],
             'children': [{
               'tagName': 'span',
               'text': currentText
