@@ -31,16 +31,6 @@ var conversation = new Watson( {
 
 app.post( '/api/message', function(req, res) {
   var workspace = process.env.WORKSPACE_ID || '<workspace-id>';
-  if ( !workspace || workspace === '<workspace-id>' ) {
-    return res.json( {
-      'output': {
-        'text': 'The app has not been configured with a <b>WORKSPACE_ID</b> environment variable. Please refer to the ' +
-        '<a href="https://github.com/watson-developer-cloud/conversation-simple">README</a> documentation on how to set this variable. <br>' +
-        'Once a workspace has been defined the intents may be imported from ' +
-        '<a href="https://github.com/watson-developer-cloud/conversation-simple/blob/master/training/car_workspace.json">here</a> in order to get a working application.'
-      }
-    } );
-  }
   var payload = {
     workspace_id: workspace,
     context: {},
@@ -78,11 +68,11 @@ function updateMessage(input, response) {
   if ( response.intents && response.intents[0] ) {
     var intent = response.intents[0];
     if ( intent.confidence >= 0.75 ) {
-      responseText = 'I understood your intent was ' + intent.intent;
+      responseText = 'Não entendi que sua intenção é' + intent.intent;
     } else if ( intent.confidence >= 0.5 ) {
-      responseText = 'I think your intent was ' + intent.intent;
+      responseText = 'Acho que sua intenção é ' + intent.intent;
     } else {
-      responseText = 'I did not understand your intent';
+      responseText = 'Não entendi sua intenção';
     }
   }
   response.output.text = responseText;
@@ -95,33 +85,33 @@ function updateMessage(input, response) {
 
 if ( cloudantUrl ) {
   if ( !process.env.LOG_USER || !process.env.LOG_PASS ) {
-    throw new Error( 'LOG_USER OR LOG_PASS not defined, both required to enable logging!' );
+    throw new Error( 'LOG_USER OR LOG_PASS não definido, ambos necessários para habilitar o log!');
   }
   var auth = basicAuth( process.env.LOG_USER, process.env.LOG_PASS );
   var nano = require( 'nano' )( cloudantUrl );
-  nano.db.get( 'car_logs', function(err) {
+  nano.db.get( 'logs', function(err) {
     if ( err ) {
       console.error(err);
-      nano.db.create( 'car_logs', function(errCreate) {
+      nano.db.create( 'logs', function(errCreate) {
         console.error(errCreate);
-        logs = nano.db.use( 'car_logs' );
+        logs = nano.db.use( 'logs' );
       } );
     } else {
-      logs = nano.db.use( 'car_logs' );
+      logs = nano.db.use( 'logs' );
     }
   } );
 
   app.post( '/clearDb', auth, function(req, res) {
-    nano.db.destroy( 'car_logs', function() {
-      nano.db.create( 'car_logs', function() {
-        logs = nano.db.use( 'car_logs' );
+    nano.db.destroy( 'logs', function() {
+      nano.db.create( 'logs', function() {
+        logs = nano.db.use( 'logs' );
       } );
     } );
-    return res.json( {'message': 'Clearing db'} );
+    return res.json( {'message': 'Limpando db'} );
   } );
 
   app.get( '/chats', auth, function(req, res) {
-    logs.list( {include_docs: true, 'descending': true}, function(err, body) {
+    logs.list( {include_docs: true, 'descendente': true}, function(err, body) {
       console.error(err);
       var csv = [];
       csv.push( ['Question', 'Intent', 'Confidence', 'Entity', 'Output', 'Time'] );
