@@ -18,7 +18,9 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit nunc quis ligula ante donec tempor lorem at massa fermentum dictum. </p>
         <div id="scrollingChat"></div>
         <div class="msg">
-          <textarea id="textInput" onkeydown="ConversationPanel.inputKeyDown(event, this)" placeholder="Digite algo e pressione enter para enviar"></textarea>
+          <input id="textInput" class="input responsive-column"
+            placeholder="Digite algo e pressione para enviar" type="text"
+            onkeydown="ConversationPanel.inputKeyDown(event, this)">         
         </div>
       </div>
     </div>
