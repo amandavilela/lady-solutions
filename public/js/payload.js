@@ -1,8 +1,3 @@
-// The PayloadPanel module is designed to handle
-// all display and behaviors of the conversation column of the app.
-/* eslint no-unused-vars: "off" */
-/* global Api: true, Common: true, PayloadPanel: true*/
-
 var PayloadPanel = (function() {
   var settings = {
     selectors: {
@@ -17,21 +12,15 @@ var PayloadPanel = (function() {
     }
   };
 
-  // Publicly accessible methods defined
   return {
     init: init,
     togglePanel: togglePanel
   };
 
-  // Initialize the module
   function init() {
     payloadUpdateSetup();
   }
 
-  // Toggle panel between being:
-  //    reduced width (default for large resolution apps)
-  //    hidden (default for small/mobile resolution apps)
-  //    full width (regardless of screen size)
   function togglePanel(event, element) {
     var payloadColumn = document.querySelector(settings.selectors.payloadColumn);
     if (element.classList.contains('full')) {
@@ -43,8 +32,6 @@ var PayloadPanel = (function() {
     }
   }
 
-  // Set up callbacks on payload setters in Api module
-  // This causes the displayPayload function to be called when messages are sent / received
   function payloadUpdateSetup() {
     var currentRequestPayloadSetter = Api.setRequestPayload;
     Api.setRequestPayload = function(newPayloadStr) {
@@ -59,22 +46,16 @@ var PayloadPanel = (function() {
     };
   }
 
-  // Display a request or response payload that has just been sent/received
   function displayPayload(typeValue) {
     var isRequest = checkRequestType(typeValue);
     if (isRequest !== null) {
-      // Create new payload DOM element
       var payloadDiv = buildPayloadDomElement(isRequest);
       var payloadElement = document.querySelector(isRequest
               ? settings.selectors.payloadRequest : settings.selectors.payloadResponse);
-      // Clear out payload holder element
       while (payloadElement.lastChild) {
         payloadElement.removeChild(payloadElement.lastChild);
       }
-      // Add new payload element
       payloadElement.appendChild(payloadDiv);
-      // Set the horizontal rule to show (if request and response payloads both exist)
-      // or to hide (otherwise)
       var payloadInitial = document.querySelector(settings.selectors.payloadInitial);
       if (Api.getRequestPayload() || Api.getResponsePayload()) {
         payloadInitial.classList.add('hide');
@@ -82,9 +63,6 @@ var PayloadPanel = (function() {
     }
   }
 
-  // Checks if the given typeValue matches with the request "name", the response "name", or neither
-  // Returns true if request, false if response, and null if neither
-  // Used to keep track of what type of payload we're currently working with
   function checkRequestType(typeValue) {
     if (typeValue === settings.payloadTypes.request) {
       return true;
@@ -94,7 +72,6 @@ var PayloadPanel = (function() {
     return null;
   }
 
-  // Constructs new DOM element to use in displaying the payload
   function buildPayloadDomElement(isRequest) {
     var payloadPrettyString = jsonPrettyPrint(isRequest
             ? Api.getRequestPayload() : Api.getResponsePayload());
@@ -102,21 +79,17 @@ var PayloadPanel = (function() {
     var payloadJson = {
       'tagName': 'div',
       'children': [{
-        // <div class='header-text'>
         'tagName': 'div',
         'text': isRequest ? 'User input' : 'Watson understands',
         'classNames': ['header-text']
       }, {
-        // <div class='code-line responsive-columns-wrapper'>
         'tagName': 'div',
         'classNames': ['code-line', 'responsive-columns-wrapper'],
         'children': [{
-          // <div class='line-numbers'>
           'tagName': 'pre',
           'text': createLineNumberString((payloadPrettyString.match(/\n/g) || []).length + 1),
           'classNames': ['line-numbers']
         }, {
-          // <div class='payload-text responsive-column'>
           'tagName': 'pre',
           'classNames': ['payload-text', 'responsive-column'],
           'html': payloadPrettyString
@@ -127,7 +100,6 @@ var PayloadPanel = (function() {
     return Common.buildDomElement(payloadJson);
   }
 
-  // Format (payload) JSON to make it more readable
   function jsonPrettyPrint(json) {
     if (json === null) {
       return '';
@@ -157,8 +129,6 @@ var PayloadPanel = (function() {
     return convert;
   }
 
-  // Used to generate a string of consecutive numbers separated by new lines
-  // - used as line numbers for displayed JSON
   function createLineNumberString(numberOfLines) {
     var lineString = '';
     var prefix = '';
