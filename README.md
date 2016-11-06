@@ -9,4 +9,11 @@ tem impacto na profissional, por isso o Desabafa também tem espaço para identi
 
 A aplição foi desenvolvida utilizando NodeJS, Bluemix e a API Conversation o IBM Watson.
 
+## Equipe:
+- [Amanda Vilela] (https://github.com/amandavilela/) - Dev
+- [Ana Gabriel] (https://github.com/AnaaGabriel) - Dev
+- [Cíntia Citton] (https://www.facebook.com/ccitton) - Researcher/Business Developer
+- [Jorge Teruya] (https://github.com/jsteruya) - Researcher/Designer
+- [Irina Cezar] (https://www.facebook.com/Irina.Cezar.PF) - Researcher/Designer
+
 ![Girl Power](https://media.giphy.com/media/3o85xvAaEm8nPHWMco/giphy.gif)
