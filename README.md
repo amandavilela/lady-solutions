@@ -16,4 +16,14 @@ A aplição foi desenvolvida utilizando NodeJS, Bluemix e a API Conversation o I
 - [Jorge Teruya] (https://github.com/jsteruya) - Researcher/Designer
 - [Irina Cezar] (https://www.facebook.com/Irina.Cezar.PF) - Researcher/Designer
 
+## Referências de pesquisa:
+- [Cartilha sobre suicídio] (https://1drv.ms/b/s!Aih0IUitTV9z7EUxmbuJiqsve85O)
+- [Fatores de Risco e tipologias dos agressores conjugais] (https://1drv.ms/b/s!Aih0IUitTV9z7ERkMfVQxQT-9uDh)
+- [Compilação de estatísticas de acesso à internet e dados de pesquisas sobre assédio] (https://1drv.ms/w/s!Aih0IUitTV9z7EKxGg9zXa3PD9Tx)
+- [Tipo de relação com o perpetrador] (https://1drv.ms/i/s!Aih0IUitTV9z7EHsSkitiTHL021H)
+- [Tipos de violência] (https://1drv.ms/b/s!Aih0IUitTV9z7ECIoTRn5nxWi-iG)
+- [Relatório Sobre Violência e Saúde] (http://www.opas.org.br/wp-content/uploads/2015/09/relatorio-mundial-violencia-saude.pdf)
+
 ![Girl Power](https://media.giphy.com/media/3o85xvAaEm8nPHWMco/giphy.gif)
+
+
