@@ -7,7 +7,7 @@ Nova a cada dez mulheres sofrerão algum tipo de violência ao longo de suas vid
 Além do impacto na vida pessoal, a violência contra a mulher também é uma questão de saúde pública e 
 tem impacto na profissional, por isso o Desabafa também tem espaço para identificar sinais de assédio no trabalho.
 
-A aplição foi desenvolvida utilizando NodeJS, Bluemix e a API Conversation o IBM Watson.
+A aplicação foi desenvolvida utilizando NodeJS, Bluemix e a API Conversation o IBM Watson.
 
 ## Equipe:
 - [Amanda Vilela] (https://github.com/amandavilela/) - Dev
