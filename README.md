@@ -8,3 +8,5 @@ Além do impacto na vida pessoal, a violência contra a mulher também é uma qu
 tem impacto na profissional, por isso o Desabafa também tem espaço para identificar sinais de assédio no trabalho.
 
 A aplição foi desenvolvida utilizando NodeJS, Bluemix e a API Conversation o IBM Watson.
+
+![Girl Power](https://media.giphy.com/media/3o85xvAaEm8nPHWMco/giphy.gif)
