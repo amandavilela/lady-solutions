@@ -1,21 +1,19 @@
 'use strict';
 
 require( 'dotenv' ).config( {silent: true} );
+//call dotenv to load environment variablesfrom .env file
 
-var express = require( 'express' );  
-var bodyParser = require( 'body-parser' );  
-var Watson = require( 'watson-developer-cloud/conversation/v1' );
+var express = require( 'express');
+//call express framework to create our web app
+var bodyParser = require( 'body-parser');
+//call bodyParser to create json objects
+var Watson = require( 'watson-developer-cloud/conversation/v1');
+//call conversation api
 
-var uuid = require( 'uuid' );
-var vcapServices = require( 'vcap_services' );
-var basicAuth = require( 'basic-auth-connect' );
-
-var cloudantCredentials = vcapServices.getCredentials( 'cloudantNoSQLDB' );
-var cloudantUrl = null;
-if ( cloudantCredentials ) {
-  cloudantUrl = cloudantCredentials.url;
-}
-cloudantUrl = cloudantUrl || process.env.CLOUDANT_URL; 
+var uuid = require('uuid')
+//call uuid to generate universally unique identifier
+var vcapServices = require('vcap_services');
+var basicAuth = require('basic-auth-connect');
 var logs = null;
 var app = express();
 
@@ -23,7 +21,6 @@ app.use( express.static( './public' ) );
 app.use( bodyParser.json() );
 
 var conversation = new Watson( {
-
   url: 'https://gateway.watsonplatform.net/conversation/api',
   version_date: '2016-09-20',
   version: 'v1'
@@ -81,88 +78,6 @@ function updateMessage(input, response) {
     logs.insert( {'_id': id, 'request': input, 'response': response, 'time': new Date()});
   }
   return response;
-}
-
-if ( cloudantUrl ) {
-  if ( !process.env.LOG_USER || !process.env.LOG_PASS ) {
-    throw new Error( 'LOG_USER OR LOG_PASS não definido, ambos necessários para habilitar o log!');
-  }
-  var auth = basicAuth( process.env.LOG_USER, process.env.LOG_PASS );
-  var nano = require( 'nano' )( cloudantUrl );
-  nano.db.get( 'logs', function(err) {
-    if ( err ) {
-      console.error(err);
-      nano.db.create( 'logs', function(errCreate) {
-        console.error(errCreate);
-        logs = nano.db.use( 'logs' );
-      } );
-    } else {
-      logs = nano.db.use( 'logs' );
-    }
-  } );
-
-  app.post( '/clearDb', auth, function(req, res) {
-    nano.db.destroy( 'logs', function() {
-      nano.db.create( 'logs', function() {
-        logs = nano.db.use( 'logs' );
-      } );
-    } );
-    return res.json( {'message': 'Limpando db'} );
-  } );
-
-  app.get( '/chats', auth, function(req, res) {
-    logs.list( {include_docs: true, 'descendente': true}, function(err, body) {
-      console.error(err);
-      var csv = [];
-      csv.push( ['Question', 'Intent', 'Confidence', 'Entity', 'Output', 'Time'] );
-      body.rows.sort( function(a, b) {
-        if ( a && b && a.doc && b.doc ) {
-          var date1 = new Date( a.doc.time );
-          var date2 = new Date( b.doc.time );
-          var t1 = date1.getTime();
-          var t2 = date2.getTime();
-          var aGreaterThanB = t1 > t2;
-          var equal = t1 === t2;
-          if (aGreaterThanB) {
-            return 1;
-          }
-          return  equal ? 0 : -1;
-        }
-      } );
-      body.rows.forEach( function(row) {
-        var question = '';
-        var intent = '';
-        var confidence = 0;
-        var time = '';
-        var entity = '';
-        var outputText = '';
-        if ( row.doc ) {
-          var doc = row.doc;
-          if ( doc.request && doc.request.input ) {
-            question = doc.request.input.text;
-          }
-          if ( doc.response ) {
-            intent = '<no intent>';
-            if ( doc.response.intents && doc.response.intents.length > 0 ) {
-              intent = doc.response.intents[0].intent;
-              confidence = doc.response.intents[0].confidence;
-            }
-            entity = '<no entity>';
-            if ( doc.response.entities && doc.response.entities.length > 0 ) {
-              entity = doc.response.entities[0].entity + ' : ' + doc.response.entities[0].value;
-            }
-            outputText = '<no dialog>';
-            if ( doc.response.output && doc.response.output.text ) {
-              outputText = doc.response.output.text.join( ' ' );
-            }
-          }
-          time = new Date( doc.time ).toLocaleString();
-        }
-        csv.push( [question, intent, confidence, entity, outputText, time] );
-      } );
-      res.csv( csv );
-    } );
-  } );
 }
 
 module.exports = app;
