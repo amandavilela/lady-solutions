@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <base href="/">
-  <title>Desabafa</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta property="og:title" content="Desabafa" />
-  <meta property="og:description" content="Desabafa é uma web aplicação para auxiliar na identificação de violência contra a mulher dos níveis mais sutis aos mais graves e ajuda na busca de informação e apoio." />
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="css/app.css">
-</head>
+  <head>
+    <base href="/">
+    <title>Desabafa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta property="og:title" content="Desabafa" />
+    <meta property="og:description" content="Desabafa é uma web aplicação para auxiliar na identificação de violência contra a mulher dos níveis mais sutis aos mais graves e ajuda na busca de informação e apoio." />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/app.css">
+  </head>
 <body>
-  <div id="contentParent" class="responsive-columns-wrapper">
-    <div id="chat-column-holder" class="responsive-column content-column">
-      <div class="chat-column">
+  <header>
+    <div class="container">
+      <div>
+        <h1>desabafa ;)</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit nunc quis ligula ante donec tempor lorem at massa fermentum dictum. </p>
         <div id="scrollingChat"></div>
-        <label for="textInput" class="inputOutline">
-          <input id="textInput" class="input responsive-column" placeholder="Type something" type="text" onkeydown="ConversationPanel.inputKeyDown(event, this)">
-        </label>
+        <div class="msg">
+          <textarea id="textInput" onkeydown="ConversationPanel.inputKeyDown(event, this)" placeholder="Digite algo e pressione enter para enviar"></textarea>
+        </div>
       </div>
     </div>
-  </div>
+  </header>
   <script src="js/common.js"></script>
   <script src="js/api.js"></script>
   <script src="js/conversation.js"></script>

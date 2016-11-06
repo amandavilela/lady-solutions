@@ -20,7 +20,6 @@ var ConversationPanel = (function() {
   function init() {
     chatUpdateSetup();
     Api.sendRequest( '', null );
-    setupInputBox();
   }
 
   function chatUpdateSetup() {
@@ -35,65 +34,6 @@ var ConversationPanel = (function() {
       currentResponsePayloadSetter.call(Api, newPayloadStr);
       displayMessage(JSON.parse(newPayloadStr), settings.authorTypes.watson);
     };
-  }
-
-  function setupInputBox() {
-    var input = document.getElementById('textInput');
-    var dummy = document.getElementById('textInputDummy');
-    var minFontSize = 14;
-    var maxFontSize = 16;
-    var minPadding = 4;
-    var maxPadding = 6;
-
-    if (dummy === null) {
-      var dummyJson = {
-        'tagName': 'div',
-        'attributes': [{
-          'name': 'id',
-          'value': 'textInputDummy'
-        }]
-      };
-
-      dummy = Common.buildDomElement(dummyJson);
-      document.body.appendChild(dummy);
-    }
-
-    function adjustInput() {
-      if (input.value === '') {
-
-        input.classList.remove('underline');
-        input.setAttribute('style', 'width:' + '100%');
-        input.style.width = '100%';
-      } else {
-
-        input.classList.add('underline');
-        var txtNode = document.createTextNode(input.value);
-        ['font-size', 'font-style', 'font-weight', 'font-family', 'line-height',
-          'text-transform', 'letter-spacing'].forEach(function(index) {
-            dummy.style[index] = window.getComputedStyle(input, null).getPropertyValue(index);
-          });
-        dummy.textContent = txtNode.textContent;
-
-        var padding = 0;
-        var htmlElem = document.getElementsByTagName('html')[0];
-        var currentFontSize = parseInt(window.getComputedStyle(htmlElem, null).getPropertyValue('font-size'), 10);
-        if (currentFontSize) {
-          padding = Math.floor((currentFontSize - minFontSize) / (maxFontSize - minFontSize)
-            * (maxPadding - minPadding) + minPadding);
-        } else {
-          padding = maxPadding;
-        }
-
-        var widthValue = ( dummy.offsetWidth + padding) + 'px';
-        input.setAttribute('style', 'width:' + widthValue);
-        input.style.width = widthValue;
-      }
-    }
-
-    input.addEventListener('input', adjustInput);
-    window.addEventListener('resize', adjustInput);
-
-    Common.fireEvent(input, 'input');
   }
 
   function displayMessage(newPayload, typeValue) {
@@ -143,14 +83,10 @@ var ConversationPanel = (function() {
           'classNames': ['segments'],
           'children': [{
             'tagName': 'div',
-            'classNames': [(isUser ? 'from-user' : 'from-watson'), 'latest', ((messageArray.length === 0) ? 'top' : 'sub')],
+            'classNames': [(isUser ? 'from-user' : 'from-watson')],
             'children': [{
-              'tagName': 'div',
-              'classNames': ['message-inner'],
-              'children': [{
-                'tagName': 'p',
-                'text': currentText
-              }]
+              'tagName': 'span',
+              'text': currentText
             }]
           }]
         };
