@@ -14,7 +14,7 @@ A aplicação foi desenvolvida utilizando NodeJS, Bluemix e a API Conversation o
 - [Ana Gabriel] (https://github.com/AnaaGabriel) - Dev
 - [Cíntia Citton] (https://www.facebook.com/ccitton) - Researcher/Business Developer
 - [Jorge Teruya] (https://github.com/jsteruya) - Researcher/Designer
-- [Irina Cezar] (https://www.facebook.com/Irina.Cezar.PF) - Researcher/Designer
+- [Irina Cezar] (https://www.facebook.com/Irina.Cezar.PF) - Researcher
 
 ## Referências de pesquisa:
 - [Cartilha sobre suicídio] (https://1drv.ms/b/s!Aih0IUitTV9z7EUxmbuJiqsve85O)
